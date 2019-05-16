@@ -1,0 +1,681 @@
+/*CSS扩展*/
+/*试水*/
+#footer {
+    border: {
+        width: 1px;
+        color: #ff0;
+        style: solid;
+    }
+}
+
+@mixin rounded($amount) {
+    border-radius: $amount
+}
+
+.box {
+    border: 3px solid #290;
+    @include rounded(0.5em);
+    padding: 3em;
+}
+
+/*CSS扩展*/
+
+#main {
+    color: #0f0;
+    width: 97%;
+
+    .redBox {
+        background-color: #f00;
+        color: #000;
+    }
+
+    p,
+    div {
+        font: {
+            size: 2em;
+            weight: bolder;
+        }
+
+        a {
+            text-align: center;
+        }
+    }
+
+    .per {
+        font: {
+            family: "Courier New", Courier, monospace;
+            style: initial;
+        }
+    }
+}
+
+
+/*引用父选择符： &*/
+
+a {
+    font-weight: bolder;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    body.firefox & {
+        font-weight: normal;
+    }
+}
+
+#main {
+    color: black;
+
+    a {
+        font-weight: bolder;
+
+        &:hover {
+            color: red;
+        }
+    }
+}
+
+/*嵌套属性*/
+
+.funky {
+    font: 2em / 3em {
+        family: "Courier New", Courier, monospace;
+        size: 3em;
+        weight: bolder;
+    }
+}
+
+/*占位符选择器： %foo*/
+
+/*---------------------------------------------*/
+/*SassScript*/
+
+$width: 5em;
+
+#main {
+    width: $width;
+
+    border: {
+        style: solid;
+        width: $width;
+        color: #0a6aa1;
+    }
+}
+
+
+/*字符串*/
+
+@mixin firefox-message($selector) {
+    body.firefox #{$selector}:before {
+        content: 'Hi,Dawn!';
+    }
+}
+
+@include firefox-message('.header');
+
+/*运算*/
+
+div {
+    width: 1in + 8pt;
+    font: 3em / 3px;
+    $width: 1000px;
+    min-width: $width / 2;
+    max-width: round(1.5)/2;
+    min-height: (500px / 2);
+    max-height: ($width / 2);
+    margin-left: 5px + 8px/2px;
+}
+
+div {
+    $font-size: 2em;
+    $line-height: 3em;
+    font:#{$font-size} / #{$line-height};
+}
+
+h3 {
+    color: #33f + #f00;
+    background-color: #010203*2;
+
+    border: {
+        style: solid;
+        width: 2em;
+        color: rgba(255, 255, 0, .4) + rgba(0, 0, 255, .4);
+    }
+}
+
+$translucent-red: rgba(255, 0, 0, 0.5);
+
+p {
+    color: opacify($translucent-red, 0.3);
+    background-color: transparentize($translucent-red, 0.25);
+}
+
+$translucent-red: rgba(255, 0, 0, 0.5);
+$green: #00ff00;
+
+div {
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled='false', startColorstr='#{ie-hex-str($green)}', endColorstr='#{ie-hex-str($translucent-red)}');
+}
+
+p {
+    cursor: e + -resize;
+}
+
+p:before {
+    content: 'Foo '+bar;
+    font-family: sans- + 'serif';
+}
+
+p {
+    margin: 3 * 8px auto;
+}
+
+p:before {
+    content: 'u ate #{5+10} pies!';
+}
+
+
+$value:null;
+
+p:before {
+    content: 'i ate #{$value} pies!'
+}
+
+;
+
+
+p {
+    width: (3em+4em)/2
+}
+
+p {
+    color: hsl(0, 10%, 54%);
+}
+
+/* p {
+  color: hsl($hue: 0, $saturation: 100%, $lightness: 50%);
+} */
+
+$name: foo;
+$attr: border;
+
+p.#{$name} {
+    #{$attr}-color: blue;
+}
+
+
+
+p {
+    $font-size: 12px;
+    $line-height: 30px;
+    font: #{$font-size}/#{$line-height};
+}
+
+$content: "First content";
+$content: "Second content?" !default;
+$new_content: "First time reference" !default;
+
+#main {
+    content: $content;
+    content: $new_content;
+}
+
+
+$content1: null;
+$content1: "Non-null content" !default;
+
+#main {
+    content: $content1;
+}
+
+/* @import */
+/* 
+
+@import "foo.css";
+@import "foo" screen;
+@import "http://foo.com/bar";
+@import url(foo);
+
+ */
+
+@import 'foo';
+
+// $family: unquote("Droid+Sans");
+// @import url("http://fonts.googleapis.com/css?family=#{$family}");
+
+#main {
+    @import 'foo'
+}
+
+/* @media */
+.sidebar {
+    width: 300px;
+
+    @media screen and (orientation: landscape) {
+        width: 500px;
+    }
+}
+
+
+@media screen {
+    .sidebar {
+        @media (orientation: landscape) {
+            width: 500px;
+        }
+    }
+}
+
+$media: screen;
+$feature: -webkit-min-device-pixel-ratio;
+$value: 1.5;
+
+@media #{$media} and ($feature: $value) {
+    .sidebar {
+        width: 500px;
+    }
+}
+
+
+/* @extend */
+
+.error {
+    border: 1px #f00;
+    background-color: #fdd;
+}
+
+.seriousError {
+    @extend .error;
+    border-width: 3px;
+}
+
+
+.error {
+    border: 1px #f00;
+    background-color: #fdd;
+}
+
+.error.intrusion {
+    background-image: url("/image/hacked.png");
+}
+
+.seriousError {
+    @extend .error;
+    border-width: 3px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.hoverLink {
+    @extend a:hover;
+}
+
+
+.comment a.user:hover {
+    font-weight: bold;
+}
+
+
+
+.error {
+    border: 1px #f00;
+    background-color: #fdd;
+}
+
+.attention {
+    font-size: 3em;
+    background-color: #ff0;
+}
+
+.seriousError {
+    @extend .error;
+    @extend .attention;
+    border-width: 3px;
+}
+
+
+.error {
+    border: 1px #f00;
+    background-color: #fdd;
+}
+
+.seriousError {
+    @extend .error;
+    border-width: 3px;
+}
+
+.criticalError {
+    @extend .seriousError;
+    position: fixed;
+    top: 10%;
+    bottom: 10%;
+    left: 10%;
+    right: 10%;
+}
+
+
+#fake-links .link {
+    @extend b;
+}
+
+b {
+    color: #9ee;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    ;
+}
+
+
+#admin .tabbar a {
+    font-weight: bold;
+}
+
+#demo .overview .fakelink {
+    @extend a;
+}
+
+
+
+#admin .tabbar a {
+    font-weight: bold;
+}
+
+#admin .overview .fakelink {
+    @extend a;
+}
+
+
+#context i%extreme {
+    color: blue;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.notice {
+    @extend %extreme;
+}
+
+a.important {
+    @extend .notice !optional;
+}
+
+
+/* @debug */
+
+// @debug 12em + 3em;
+
+/* @warn */
+@mixin adjust-location($x, $y) {
+    @if unitless($x) {
+        @warn "Assuming #{$x} to be in pixels";
+        $x: 1px * $x;
+    }
+
+    @if unitless($y) {
+        @warn "Assuming #{$y} to be in pixels";
+        $y: 1px * $y;
+    }
+
+    position: relative;
+    left: $x;
+    top: $y;
+}
+
+/* @if */
+p {
+    @if 1+1==2 {
+        border: 1px solid;
+    }
+
+    @if 5 < 3 {
+        border: 2px dotted;
+    }
+
+    @else {
+        content: '5<3'
+    }
+
+    @if null {
+        border: 3px double;
+    }
+}
+
+$type: monster;
+
+p {
+    @if $type==ocean {
+        color: blue;
+    }
+
+    @else if $type==matador {
+        color: red;
+    }
+
+    @else if $type==monster {
+        color: green;
+    }
+
+    @else {
+        color: black;
+    }
+}
+
+
+/* @for */
+
+
+@for $i from 1 through 3 {
+    .item-#{$i} {
+        width: 2em * $i;
+    }
+}
+
+@for $i from 1 to 3 {
+    .li-#{$i} {
+        width: 2em * $i;
+    }
+}
+
+/* @each */
+
+
+@each $animal in puma,
+sea-slug,
+egret,
+salamander {
+    .#{$animal}-icon {
+        background-image: url('/images/#{$animal}.png');
+    }
+}
+
+
+
+/* @while */
+
+$i:6;
+
+@while $i>0 {
+    .item-#{$i} {
+        width: 2em * $i;
+    }
+
+    $i:$i - 2;
+}
+
+
+/* Mixin Directives */
+
+@mixin large-text {
+    font: {
+        family: Arial;
+        size: 2em;
+        weight: bolder;
+    }
+
+    color: #f00;
+}
+
+
+
+@mixin clearfix {
+    display: inline-block;
+
+    &:after {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+
+    * html & {
+        height: 1px
+    }
+}
+
+/* @include */
+
+
+.page-ptitle {
+    @include large-text;
+    padding: 4px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+@mixin silly-links {
+    .c {
+        color: blue;
+        background-color: red;
+    }
+
+    .d {
+        font-style: italic;
+    }
+}
+
+@include silly-links;
+
+
+@mixin compound {
+    @include highlighted-background;
+    @include header-text;
+}
+
+@mixin highlighted-background {
+    background-color: #fc0;
+}
+
+@mixin header-text {
+    font-size: 20px;
+}
+
+h1 {
+    @include compound
+}
+
+
+@mixin sexy-border($color, $width) {
+    border: {
+        color: $color;
+        width: $width;
+        style: dashed;
+    }
+}
+
+p {
+    @include sexy-border(blue, 1in);
+}
+
+@mixin sexy-border($color, $width: 1in) {
+    border: {
+        color: $color;
+        width: $width;
+        style: dashed;
+    }
+}
+
+p {
+    @include sexy-border(blue);
+}
+
+h1 {
+    @include sexy-border(blue, 2in);
+}
+
+
+@mixin box-shadow($shadows...) {
+    -moz-box-shadow: $shadows;
+    -webkit-box-shadow: $shadows;
+    box-shadow: $shadows;
+}
+
+.shadows {
+    @include box-shadow(0px 4px 5px #666, 2px 6px 10px #999);
+}
+
+
+@mixin colors($text, $background, $border) {
+  color: $text;
+  background-color: $background;
+  border-color: $border;
+}
+
+$values: #ff0000, #00ff00, #0000ff;
+.primary {
+  @include colors($values...);
+}
+
+
+// @mixin wrapped-stylish-mixin($args...) {
+//   font-weight: bold;
+//   @include stylish-mixin($args...);
+// }
+
+// .stylish {
+//   // The $width argument will get passed on to "stylish-mixin" as a keyword
+//   @include wrapped-stylish-mixin(#00ff00, $width: 100px);
+// }
+
+
+@mixin apply-to-ie6-only {
+  * html {
+    @content;
+  }
+}
+@include apply-to-ie6-only {
+  #logo {
+    background-image: url(/logo.gif);
+  }
+}
+
+
+
+$color: white;
+@mixin colors($color: blue) {
+  background-color: $color;
+  @content;
+  border-color: $color;
+}
+.colors {
+  @include colors { color: $color; }
+}
+
+
+/* @function */
+
+$grid-width: 40px;
+$gutter-width: 10px;
+
+@function grid-width($n) {
+  @return $n * $grid-width + ($n - 1) * $gutter-width;
+}
+
+#sidebar { width: grid-width(5); }

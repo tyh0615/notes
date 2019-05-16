@@ -1,0 +1,433 @@
+@charset "UTF-8";
+/*CSS扩展*/
+/*试水*/
+#footer {
+  border-width: 1px;
+  border-color: #ff0;
+  border-style: solid;
+}
+
+.box {
+  border: 3px solid #290;
+  border-radius: 0.5em;
+  padding: 3em;
+}
+
+/*CSS扩展*/
+#main {
+  color: #0f0;
+  width: 97%;
+}
+#main .redBox {
+  background-color: #f00;
+  color: #000;
+}
+#main p,
+#main div {
+  font-size: 2em;
+  font-weight: bolder;
+}
+#main p a, #main p #demo .overview .fakelink, #demo .overview #main p .fakelink, #main p #admin .overview .fakelink, #admin .overview #main p .fakelink,
+#main div a,
+#main div #demo .overview .fakelink,
+#demo .overview #main div .fakelink,
+#main div #admin .overview .fakelink,
+#admin .overview #main div .fakelink {
+  text-align: center;
+}
+#main .per {
+  font-family: "Courier New", Courier, monospace;
+  font-style: initial;
+}
+
+/*引用父选择符： &*/
+a, #demo .overview .fakelink, #admin .overview .fakelink {
+  font-weight: bolder;
+  text-decoration: none;
+}
+a:hover, .hoverLink, #demo .overview .fakelink:hover, #admin .overview .fakelink:hover {
+  text-decoration: underline;
+}
+body.firefox a, body.firefox #demo .overview .fakelink, #demo .overview body.firefox .fakelink, body.firefox #admin .overview .fakelink, #admin .overview body.firefox .fakelink {
+  font-weight: normal;
+}
+
+#main {
+  color: black;
+}
+#main a, #main #demo .overview .fakelink, #demo .overview #main .fakelink, #main #admin .overview .fakelink, #admin .overview #main .fakelink {
+  font-weight: bolder;
+}
+#main a:hover, #main .hoverLink, #main #demo .overview .fakelink:hover, #demo .overview #main .fakelink:hover, #main #admin .overview .fakelink:hover, #admin .overview #main .fakelink:hover {
+  color: red;
+}
+
+/*嵌套属性*/
+.funky {
+  font: 2em/3em;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 3em;
+  font-weight: bolder;
+}
+
+/*占位符选择器： %foo*/
+/*---------------------------------------------*/
+/*SassScript*/
+#main {
+  width: 5em;
+  border-style: solid;
+  border-width: 5em;
+  border-color: #0a6aa1;
+}
+
+/*字符串*/
+body.firefox .header:before {
+  content: 'Hi,Dawn!';
+}
+
+/*运算*/
+div {
+  width: 1.1111111111in;
+  font: 3em / 3px;
+  min-width: 500px;
+  max-width: 1;
+  min-height: 250px;
+  max-height: 500px;
+  margin-left: 9px;
+}
+
+div {
+  font: 2em / 3em;
+}
+
+h3 {
+  color: #ff33ff;
+  background-color: #020406;
+  border-style: solid;
+  border-width: 2em;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+p {
+  color: rgba(255, 0, 0, 0.8);
+  background-color: rgba(255, 0, 0, 0.25);
+}
+
+div {
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled='false', startColorstr='#FF00FF00', endColorstr='#80FF0000');
+}
+
+p {
+  cursor: e-resize;
+}
+
+p:before {
+  content: "Foo bar";
+  font-family: sans-serif;
+}
+
+p {
+  margin: 24px auto;
+}
+
+p:before {
+  content: "u ate 15 pies!";
+}
+
+p:before {
+  content: "i ate  pies!";
+}
+
+p {
+  width: 3.5em;
+}
+
+p {
+  color: #957e7e;
+}
+
+/* p {
+  color: hsl($hue: 0, $saturation: 100%, $lightness: 50%);
+} */
+p.foo {
+  border-color: blue;
+}
+
+p {
+  font: 12px/30px;
+}
+
+#main {
+  content: "First content";
+  content: "First time reference";
+}
+
+#main {
+  content: "Non-null content";
+}
+
+/* @import */
+/* 
+
+@import "foo.css";
+@import "foo" screen;
+@import "http://foo.com/bar";
+@import url(foo);
+
+ */
+p {
+  font-width: 12px;
+  font-weight: bolder;
+}
+
+h4 {
+  line-height: 5em;
+}
+
+#main p {
+  font-width: 12px;
+  font-weight: bolder;
+}
+#main h4 {
+  line-height: 5em;
+}
+
+/* @media */
+.sidebar {
+  width: 300px;
+}
+@media screen and (orientation: landscape) {
+  .sidebar {
+    width: 500px;
+  }
+}
+
+@media screen and (orientation: landscape) {
+  .sidebar {
+    width: 500px;
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 1.5) {
+  .sidebar {
+    width: 500px;
+  }
+}
+/* @extend */
+.error, .seriousError, .criticalError {
+  border: 1px #f00;
+  background-color: #fdd;
+}
+
+.seriousError, .criticalError {
+  border-width: 3px;
+}
+
+.error, .seriousError, .criticalError {
+  border: 1px #f00;
+  background-color: #fdd;
+}
+
+.error.intrusion, .intrusion.seriousError, .intrusion.criticalError {
+  background-image: url("/image/hacked.png");
+}
+
+.seriousError, .criticalError {
+  border-width: 3px;
+}
+
+a:hover, .hoverLink, #demo .overview .fakelink:hover, #admin .overview .fakelink:hover {
+  text-decoration: underline;
+}
+
+.comment a.user:hover, .comment .user.hoverLink, .comment #demo .overview .user.fakelink:hover, #demo .overview .comment .user.fakelink:hover, .comment #admin .overview .user.fakelink:hover, #admin .overview .comment .user.fakelink:hover {
+  font-weight: bold;
+}
+
+.error, .seriousError, .criticalError {
+  border: 1px #f00;
+  background-color: #fdd;
+}
+
+.attention, .seriousError, .criticalError {
+  font-size: 3em;
+  background-color: #ff0;
+}
+
+.seriousError, .criticalError {
+  border-width: 3px;
+}
+
+.error, .seriousError, .criticalError {
+  border: 1px #f00;
+  background-color: #fdd;
+}
+
+.seriousError, .criticalError {
+  border-width: 3px;
+}
+
+.criticalError {
+  position: fixed;
+  top: 10%;
+  bottom: 10%;
+  left: 10%;
+  right: 10%;
+}
+
+b, #fake-links .link {
+  color: #9ee;
+}
+b:hover, #fake-links .link:hover {
+  text-decoration: underline;
+}
+
+#admin .tabbar a, #demo .overview #admin .tabbar .fakelink, #admin .tabbar .overview .fakelink, #admin .overview .tabbar .fakelink {
+  font-weight: bold;
+}
+
+#admin .tabbar a, #demo .overview #admin .tabbar .fakelink, #admin .tabbar .overview .fakelink, #admin .overview .tabbar .fakelink {
+  font-weight: bold;
+}
+
+#context i.notice {
+  color: blue;
+  font-weight: bold;
+  font-size: 2em;
+}
+
+/* @debug */
+/* @warn */
+/* @if */
+p {
+  border: 1px solid;
+  content: "5<3";
+}
+
+p {
+  color: green;
+}
+
+/* @for */
+.item-1 {
+  width: 2em;
+}
+
+.item-2 {
+  width: 4em;
+}
+
+.item-3 {
+  width: 6em;
+}
+
+.li-1 {
+  width: 2em;
+}
+
+.li-2 {
+  width: 4em;
+}
+
+/* @each */
+.puma-icon {
+  background-image: url("/images/puma.png");
+}
+
+.sea-slug-icon {
+  background-image: url("/images/sea-slug.png");
+}
+
+.egret-icon {
+  background-image: url("/images/egret.png");
+}
+
+.salamander-icon {
+  background-image: url("/images/salamander.png");
+}
+
+/* @while */
+.item-6 {
+  width: 12em;
+}
+
+.item-4 {
+  width: 8em;
+}
+
+.item-2 {
+  width: 4em;
+}
+
+/* Mixin Directives */
+/* @include */
+.page-ptitle {
+  font-family: Arial;
+  font-size: 2em;
+  font-weight: bolder;
+  color: #f00;
+  padding: 4px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.c {
+  color: blue;
+  background-color: red;
+}
+
+.d {
+  font-style: italic;
+}
+
+h1 {
+  background-color: #fc0;
+  font-size: 20px;
+}
+
+p {
+  border-color: blue;
+  border-width: 1in;
+  border-style: dashed;
+}
+
+p {
+  border-color: blue;
+  border-width: 1in;
+  border-style: dashed;
+}
+
+h1 {
+  border-color: blue;
+  border-width: 2in;
+  border-style: dashed;
+}
+
+.shadows {
+  -moz-box-shadow: 0px 4px 5px #666, 2px 6px 10px #999;
+  -webkit-box-shadow: 0px 4px 5px #666, 2px 6px 10px #999;
+  box-shadow: 0px 4px 5px #666, 2px 6px 10px #999;
+}
+
+.primary {
+  color: #ff0000;
+  background-color: #00ff00;
+  border-color: #0000ff;
+}
+
+* html #logo {
+  background-image: url(/logo.gif);
+}
+
+.colors {
+  background-color: blue;
+  color: white;
+  border-color: blue;
+}
+
+/* @function */
+#sidebar {
+  width: 240px;
+}
+
+/*# sourceMappingURL=scss.css.map */
